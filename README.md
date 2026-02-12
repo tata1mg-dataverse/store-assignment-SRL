@@ -35,3 +35,15 @@ Delivery speed is determined based on **TAT**:
 
 
 ---
+
+### Training
+
+For training supervised allocation model:
+```bash
+python run_supervised.py --epoch_size 200 --learning_rate 0.004 --alpha 0.25 --fast_delivery_alpha 0.75 
+```
+
+for training reinforcement learning model:
+```bash
+python run_rl.py --epoch_size 200 --learning_rate 0.004 --alpha 0.25 --fast_delivery_alpha 0.75 --policy_model_location 'policy_model.pt' --value_model_location 'value_model.pt'
+```

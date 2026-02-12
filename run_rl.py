@@ -14,15 +14,17 @@ from reward_generator import RewardCalculator
 def run(config):
     
     path = config.path
-    orders = pd.read_csv(f'{path}/orders.csv')
-    order_skus = pd.read_csv(f'{path}/order_skus.csv')
+    orders = pd.read_csv(f'{path}/orders.parquet')
+    order_skus = pd.read_csv(f'{path}/order_skus.parquet')
+    sku_vol = pd.read_csv(f'{path}/sku_vol.parquet')
 
     df = order_skus.merge(orders,on=['GROUP_ID','ORDER_ID'])
+    df = df.merge(sku_vol, on='SKU_ID',how='left')
     df['ORDER_DATE'] = pd.to_datetime(df['ORDER_DATE'],format='mixed')
     df['IS_fast_delivery'] = df['DELIVERY_TYPE'].map({'fast_delivery':1,'slow_delivery':0})
 
-    df['COLD_STORAGE'] = 0
-    df['ITEM_WEIGHT_GMS'] = 100
+    df['COLD_STORAGE'] = [np.random.random() < 0.05 for x in range(len(df))]
+    
     df['real_actions'] = df['WAREHOUSE_CODE']
 
     preparator = DataPreparator(path)
@@ -64,7 +66,7 @@ def run(config):
                         lr_scheduler, 
                         lr_scheduler_critic, 
                         loss_fn, 
-                        reward_generator, 
+                        reward_generator
                         )
     # logger = Logger()
 

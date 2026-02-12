@@ -4,7 +4,7 @@ from torch.optim.lr_scheduler import SequentialLR
 import torch.optim as optim
 import torch
 
-def create_policy_model(config, reward_generator, path=None):
+def create_policy_model(config, reward_generator):
     num_scalar_features = reward_generator.num_scalar_features
     mlp_output_dim = reward_generator.num_warehouses
     mlp_hidden_layers = [512, 256, 128, 128, 64]
@@ -14,6 +14,7 @@ def create_policy_model(config, reward_generator, path=None):
     allocation_output_dim = reward_generator.num_warehouses
     dropout = 0.2
     num_encoder_layers = 8
+    path = config.policy_model_location
     if path:
         allocation_model = torch.load(path, weights_only=False)
 
@@ -54,6 +55,7 @@ def create_value_model(config, reward_generator, path = None):
     d_ff = 128
     dropout = 0.3
     num_encoder_layers = 8
+    path = path = config.value_model_location
     if path:
         value_model = torch.load(path, weights_only=False)
 

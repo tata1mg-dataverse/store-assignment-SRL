@@ -10,6 +10,8 @@ def get_config(args=None):
     parser.add_argument('--alpha', type=float, default=0.25, help='Alpha coefficient')
     parser.add_argument('--fast_delivery_alpha', type=float, default=0.75, help='fast_delivery alpha coefficient')
     parser.add_argument('--bl_alpha', type=float, default=0.05, help='BL alpha coefficient')
+    parser.add_argument('--policy_model_location', type=str, default='', help='Policy model location')
+    parser.add_argument('--value_model_location', type=str, default='', help='Value model location')
 
     config = parser.parse_args(args)
     config.device = 'cuda'
