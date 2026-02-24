@@ -14,13 +14,13 @@ from reward_generator import RewardCalculator
 def run(config):
     
     path = config.path
-    orders = pd.read_csv(f'{path}/orders.csv')
-    order_skus = pd.read_csv(f'{path}/order_skus.csv')
+    orders = pd.read_parquet(f'{path}/orders.parquet')
+    order_skus = pd.read_parquet(f'{path}/order_skus.parquet')
     sku_vol = pd.read_parquet(f'{path}/sku_vol.parquet')
 
     df = order_skus.merge(orders,on=['GROUP_ID','ORDER_ID'])
     df = df.merge(sku_vol, on='SKU_ID',how='left')
-    
+
     df['ORDER_DATE'] = pd.to_datetime(df['ORDER_DATE'],format='mixed')
     df['IS_fast_delivery'] = df['DELIVERY_TYPE'].map({'fast_delivery':1,'slow_delivery':0})
 
