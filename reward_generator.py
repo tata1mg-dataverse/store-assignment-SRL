@@ -95,9 +95,8 @@ class RewardCalculator():
 
     def get_reward(self, df):
         ldf = len(df)
-
-        df = df.merge(self.vendor_loc2, on=['WAREHOUSE_CODE'], how='left')
-        # df['WAREHOUSE_CODE']  = df['actions']
+        df = df.merge(self.vendor_loc2, on=['actions'], how='left')
+        df['WAREHOUSE_CODE']  = df['actions']
         df['year_mon'] = df.ORDER_DATE.map(lambda x: f"{x.date()}"[0:7])
         df['HOUR'] = df['ORDER_DATE'].dt.hour
         
