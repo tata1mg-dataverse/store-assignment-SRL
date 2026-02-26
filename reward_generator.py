@@ -125,7 +125,7 @@ class RewardCalculator():
     #     ------------------------logistic partner---------------------------------------------
         
         s_c_d_index = self.store_cus_dp.index
-        Map = lambda x,y: self.store_cus_dp.loc[x,y].index[np.where(np.random.multinomial(n=1,pvals=self.store_cus_dp.loc[x,y].to_list())==1)[0]][0] if (x, y) in s_c_d_index else 'EkartNCP'
+        Map = lambda x,y: self.store_cus_dp.loc[x,y].index[np.where(np.random.multinomial(n=1,pvals=self.store_cus_dp.loc[x,y].to_list())==1)[0]][0] if (x, y) in s_c_d_index else 9
         set_logistics_partner = df[['GROUP_ID','WAREHOUSE_CODE','CENTRAL_PINCODE']].drop_duplicates()
         set_logistics_partner['DELIVERY_PARTNERS_CODE_D'] = set_logistics_partner.apply(lambda x: Map(x['WAREHOUSE_CODE'], x['CENTRAL_PINCODE']),axis=1)      
         df = df.merge(set_logistics_partner,on=['GROUP_ID','WAREHOUSE_CODE','CENTRAL_PINCODE'],how='left')      
