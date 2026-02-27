@@ -42,7 +42,7 @@ class DataPreparator:
             Dictionary mapping (DATE, SKU_ID) to inventory quantities
         """
         inv = pd.read_csv(self.inventory_path)
-        
+        inv['QUANTITY'] = (inv['QUANTITY']>0).astype(int)
         # Remove duplicates and pivot data
         inventory_processed = (
             inv.drop_duplicates(subset=['DATE', 'SKU_ID', 'WAREHOUSE_CODE'])

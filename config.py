@@ -5,7 +5,7 @@ def get_config(args=None):
     parser = argparse.ArgumentParser(
         description="Attention based model for solving the Allocation Problem with Reinforcement Learning")
     parser.add_argument('--epoch_size', type=int, default=500, help='Number of instances per epoch during training')
-    parser.add_argument('--learning_rate', type=float, default=0.01, help='Learning rate for the optimizer')
+    parser.add_argument('--learning_rate', type=float, default=0.04, help='Learning rate for the optimizer')
     parser.add_argument('--kl_beta', type=float, default=5, help='KL divergence coefficient')
     parser.add_argument('--alpha', type=float, default=0.25, help='Alpha coefficient')
     parser.add_argument('--fast_delivery_alpha', type=float, default=0.75, help='fast_delivery alpha coefficient')

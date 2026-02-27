@@ -18,7 +18,7 @@ def create_policy_model(config, reward_generator):
     if path:
         allocation_model = torch.load(path, weights_only=False)
 
-        optimizer = optim.Adam(allocation_model.parameters(), lr=1e-5)
+        optimizer = optim.Adam(allocation_model.parameters(), lr=1e-4)
         lr_scheduler_policy_cosine = optim.lr_scheduler.CosineAnnealingLR(optimizer, eta_min=1e-6, T_max=100)
         lr_scheduler_policy_warm_up = optim.lr_scheduler.ConstantLR(optimizer, factor=0.1, total_iters=2)
         lr_scheduler = SequentialLR(
